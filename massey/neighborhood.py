@@ -1,4 +1,4 @@
-import massey.group
+from massey import group
 
 class City:
 
