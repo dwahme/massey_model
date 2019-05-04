@@ -18,4 +18,8 @@ if __name__ == "__main__":
 
     print(city1.generate_uniform())
     print(city1.generate_segregated())
+    print("")
+    print(city1.generate_mixed([["humans"], ["elves", "orcs"]]))
+
+    
 
