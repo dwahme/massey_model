@@ -1,8 +1,13 @@
+import massey.group as group
 import massey.neighborhood as nbhd
 
 if __name__ == "__main__":
-    groups0 = [("humans", 20), ("elves", 5)]
-    groups1 = [("humans", 18), ("elves", 6), ("orcs", 12)]
+    groups0 = [group.Group("humans", 20, .3), 
+               group.Group("elves", 20, 0)]
+               
+    groups1 = [group.Group("humans", 18, .3), 
+               group.Group("elves", 6, 0),
+               group.Group("orcs", 12, .5)]
 
     city0 = nbhd.City(groups0, 5)
 

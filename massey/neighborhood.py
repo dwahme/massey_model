@@ -1,3 +1,4 @@
+import massey.group
 
 class City:
 
@@ -17,7 +18,7 @@ class City:
 
             # Get an even distribution from each group
             for group in self.groups:
-                neighborhood.append((group[0], group[1] / self.neighborhoods))
+                neighborhood.append(group.fill_neighborhood(self.neighborhoods))
 
             matrix.append(neighborhood)
 
@@ -30,9 +31,9 @@ class City:
 
         # Determine the total number of people
         # then figure out how many neighborhoods each group gets
-        num_people = sum([num for (name, num) in self.groups])
-        neighborhood_nums = [self.neighborhoods * num // num_people 
-            for (name, num) in self.groups]
+        num_people = sum([group.number for group in self.groups])
+        neighborhood_nums = [self.neighborhoods * group.number // num_people 
+            for group in self.groups]
 
         print(neighborhood_nums)
 
@@ -40,7 +41,7 @@ class City:
         for (num, group) in zip(neighborhood_nums, self.groups):
 
             for _ in range(num):
-                matrix.append([(group[0], group[1] / num)])
+                matrix.append(group.fill_neighborhood(num))
 
         self.matrix = matrix
 
