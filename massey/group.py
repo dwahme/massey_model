@@ -6,5 +6,5 @@ class Group:
         self.number = number
         self.poverty_level = poverty_level
 
-    def fill_neighborhood(self, inv_prop):
+    def fill_nbhd(self, inv_prop):
         return (self.name, self.number // inv_prop, self.poverty_level)

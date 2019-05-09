@@ -1,5 +1,5 @@
 from massey import group
-from massey import neighborhood as nbhd
+from massey import nbhd
 
 if __name__ == "__main__":
     groups0 = [group.Group("humans", 20, .3), 

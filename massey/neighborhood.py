@@ -2,9 +2,9 @@ from massey import group
 
 class City:
 
-    def __init__(self, groups, num_neighborhoods):
+    def __init__(self, groups, num_nbhds):
         self.groups = groups
-        self.num_neighborhoods = num_neighborhoods
+        self.num_nbhds = num_nbhds
 
         self.matrix = []
 
@@ -18,60 +18,60 @@ class City:
     def get_num_people(self):
         return sum([group.number for group in self.groups])
 
-    # Evenly evenly distributes people across a given number of neighborhoods
-    def generate_uniform(self, num_neighborhoods=-1, groups=None):
-        if num_neighborhoods == -1:
-            num_neighborhoods = self.num_neighborhoods
+    # Evenly evenly distributes people across a given number of nbhds
+    def generate_uniform(self, num_nbhds=-1, groups=None):
+        if num_nbhds == -1:
+            num_nbhds = self.num_nbhds
         if groups == None:
             groups = self.groups
         
         matrix = []
 
-        # Build each neighborhood one at a time
-        for _ in range(num_neighborhoods):
-            neighborhood = []
+        # Build each nbhd one at a time
+        for _ in range(num_nbhds):
+            nbhd = []
 
             # Get an even distribution from each group
             for group in groups:
-                neighborhood.append(group.fill_neighborhood(num_neighborhoods))
+                nbhd.append(group.fill_nbhd(num_nbhds))
 
-            matrix.append(neighborhood)
+            matrix.append(nbhd)
 
         self.matrix = matrix
 
         return matrix
 
     # Segregates all groups
-    def generate_segregated(self, num_neighborhoods=-1, groups=None):
-        if num_neighborhoods == -1:
-            num_neighborhoods = self.num_neighborhoods
+    def generate_segregated(self, num_nbhds=-1, groups=None):
+        if num_nbhds == -1:
+            num_nbhds = self.num_nbhds
         if groups == None:
             groups = self.groups
 
         matrix = []
 
         # Determine the total number of people
-        # then figure out how many num_neighborhoods each group gets
+        # then figure out how many num_nbhds each group gets
         num_people = self.get_num_people()
-        neighborhood_nums = [num_neighborhoods * group.number // num_people 
+        nbhd_nums = [num_nbhds * group.number // num_people 
             for group in groups]
 
-        print(neighborhood_nums)
+        print(nbhd_nums)
 
-        # Distribute according to how many num_neighborhoods the group gets
-        for (num, group) in zip(neighborhood_nums, groups):
+        # Distribute according to how many num_nbhds the group gets
+        for (num, group) in zip(nbhd_nums, groups):
 
             for _ in range(num):
-                matrix.append(group.fill_neighborhood(num))
+                matrix.append(group.fill_nbhd(num))
 
         self.matrix = matrix
 
         return matrix
 
-    # Allows mixing up groupings of neighborhoods
-    def generate_mixed(self, mixed_group_names, num_neighborhoods=-1):
-        if num_neighborhoods == -1:
-            num_neighborhoods = self.num_neighborhoods
+    # Allows mixing up groupings of nbhds
+    def generate_mixed(self, mixed_group_names, num_nbhds=-1):
+        if num_nbhds == -1:
+            num_nbhds = self.num_nbhds
 
         matrix = []
 
@@ -100,7 +100,7 @@ class City:
         # Generate each mixed part of the city uniformly
         for (mix, count) in zip(mixed_groups, mixed_groups_counts):
             matrix += self.generate_uniform(
-                num_neighborhoods * count // total_people, mix)
+                num_nbhds * count // total_people, mix)
 
         self.matrix = matrix
 

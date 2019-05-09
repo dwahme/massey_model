@@ -1,5 +1,5 @@
 from massey import group
-from massey import neighborhood as nbhd
+from massey import nbhd
 import matplotlib.pyplot as plt
 import math
 
@@ -15,13 +15,13 @@ def factor_int(n):
             val-=1
     return val, val2
 
-def noisy(neighborhood):
+def noisy(nbhd):
     pass
 
 
 def plot(city, save=None):
     matrix = city.matrix
 
-    xmax, ymax = factor_int(city.num_neighborhoods)
+    xmax, ymax = factor_int(city.num_nbhds)
 
     pass
