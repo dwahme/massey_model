@@ -65,7 +65,7 @@ class City:
         for (num, group) in zip(nbhd_nums, groups):
 
             for _ in range(num):
-                matrix.append(group.fill_nbhd(num))
+                matrix.append([group.fill_nbhd(num)])
 
         self.matrix = matrix
 
@@ -120,7 +120,18 @@ class City:
 
         splits = [group.split_poverty() for group in groups]
 
-        return self.generate_uniform(num_nbhds, splits)
+        groups_r = []
+        groups_p = []
+        for r, p in splits:
+            groups_r.append(r)
+            groups_p.append(p)
+
+        matrix = (self.generate_uniform(int(num_nbhds / 2), groups_r) + 
+            self.generate_uniform(int(num_nbhds / 2), groups_p))
+
+        self.matrix = matrix
+
+        return matrix
 
     def generate_segregated_p(self, num_nbhds=-1, groups=None):
         if num_nbhds == -1:
@@ -130,7 +141,18 @@ class City:
 
         splits = [group.split_poverty() for group in groups]
 
-        return self.generate_segregated(num_nbhds, splits)
+        groups_r = []
+        groups_p = []
+        for r, p in splits:
+            groups_r.append(r)
+            groups_p.append(p)
+
+        matrix = (self.generate_segregated(int(num_nbhds / 2), groups_r) + 
+            self.generate_segregated(int(num_nbhds / 2), groups_p))
+
+        self.matrix = matrix
+
+        return matrix
 
     def generate_mixed_p(self, mixed_group_names, num_nbhds=-1, groups=None):
         if num_nbhds == -1:
