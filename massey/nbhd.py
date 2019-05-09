@@ -8,15 +8,21 @@ class City:
 
         self.matrix = []
 
-    def get_group_by_name(self, name):
-        for group in self.groups:
+    def get_group_by_name(self, name, groups=None):
+        if groups == None:
+            groups = self.groups
+
+        for group in groups:
             if group.name == name:
                 return group
 
         return None
 
-    def get_num_people(self):
-        return sum([group.number for group in self.groups])
+    def get_num_people(self, groups=None):
+        if groups == None:
+            groups = self.groups
+
+        return sum([group.number for group in groups])
 
     # Evenly evenly distributes people across a given number of nbhds
     def generate_uniform(self, num_nbhds=-1, groups=None):
@@ -69,9 +75,11 @@ class City:
         return matrix
 
     # Allows mixing up groupings of nbhds
-    def generate_mixed(self, mixed_group_names, num_nbhds=-1):
+    def generate_mixed(self, mixed_group_names, num_nbhds=-1, groups=None):
         if num_nbhds == -1:
             num_nbhds = self.num_nbhds
+        if groups == None:
+            groups = self.groups
 
         matrix = []
 
@@ -86,7 +94,7 @@ class City:
             mixed_group_num = 0
 
             for name in group_names:
-                group = self.get_group_by_name(name)
+                group = self.get_group_by_name(name, groups)
 
                 if group == None:
                     return []
@@ -106,4 +114,47 @@ class City:
 
         return matrix
 
+    def generate_uniform_p(self, num_nbhds=-1, groups=None):
+        if num_nbhds == -1:
+            num_nbhds = self.num_nbhds
+        if groups == None:
+            groups = self.groups
 
+        splits = [group.split_poverty() for group in groups]
+
+        return self.generate_uniform(num_nbhds, splits)
+
+    def generate_segregated_p(self, num_nbhds=-1, groups=None):
+        if num_nbhds == -1:
+            num_nbhds = self.num_nbhds
+        if groups == None:
+            groups = self.groups
+
+        splits = [group.split_poverty() for group in groups]
+
+        return self.generate_segregated(num_nbhds, splits)
+
+    def generate_mixed_p(self, mixed_group_names, num_nbhds=-1, groups=None):
+        if num_nbhds == -1:
+            num_nbhds = self.num_nbhds
+        if groups == None:
+            groups = self.groups
+
+        splits = [group.split_poverty() for group in groups]
+        groups_p = []
+        for r, p in splits:
+            groups_p.append(r)
+            groups_p.append(p)
+
+        names = []
+        for sublist in mixed_group_names:
+            nested = [(name + "_rich", name + "_poor") for name in sublist]
+
+            names_tmp = []
+            for r, p in nested:
+                names_tmp.append(r)
+                names_tmp.append(p)
+
+            names.append(names_tmp)
+
+        return self.generate_mixed(names, num_nbhds, groups_p)

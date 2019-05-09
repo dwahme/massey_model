@@ -11,15 +11,16 @@ if __name__ == "__main__":
 
     city0 = nbhd.City(groups0, 5)
 
-    print(city0.generate_uniform())
-    print(city0.generate_segregated())
+    # print(city0.generate_uniform())
+    # print(city0.generate_segregated())
 
     city1 = nbhd.City(groups1, 6)
 
-    print(city1.generate_uniform())
-    print(city1.generate_segregated())
-    print("")
-    print(city1.generate_mixed([["humans"], ["elves", "orcs"]]))
+    # print(city1.generate_uniform())
+    # print(city1.generate_segregated())
+    # print("")
+    # print(city1.generate_mixed([["humans"], ["elves", "orcs"]]))
+    print(city1.generate_mixed_p([["humans"], ["elves", "orcs"]]))
 
     
 

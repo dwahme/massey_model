@@ -1,2 +1,2 @@
-import massey.neighborhood
+import massey.nbhd
 import massey.group
