@@ -36,7 +36,6 @@ class City:
         # Build each nbhd one at a time
         for _ in range(num_nbhds):
             nbhd = []
-
             # Get an even distribution from each group
             for group in groups:
                 nbhd.append(group.fill_nbhd(num_nbhds))
@@ -58,11 +57,9 @@ class City:
 
         # Determine the total number of people
         # then figure out how many num_nbhds each group gets
-        num_people = self.get_num_people()
+        num_people = self.get_num_people(groups)
         nbhd_nums = [num_nbhds * group.number // num_people 
             for group in groups]
-
-        print(nbhd_nums)
 
         # Distribute according to how many num_nbhds the group gets
         for (num, group) in zip(nbhd_nums, groups):
@@ -83,7 +80,7 @@ class City:
 
         matrix = []
 
-        total_people = self.get_num_people()
+        total_people = self.get_num_people(groups)
 
         # Get the group mixes by looking up by name
         # Also get their relative proportions
@@ -107,6 +104,7 @@ class City:
 
         # Generate each mixed part of the city uniformly
         for (mix, count) in zip(mixed_groups, mixed_groups_counts):
+
             matrix += self.generate_uniform(
                 num_nbhds * count // total_people, mix)
 
@@ -141,20 +139,30 @@ class City:
             groups = self.groups
 
         splits = [group.split_poverty() for group in groups]
+
+        groups_r = []
         groups_p = []
         for r, p in splits:
-            groups_p.append(r)
+            groups_r.append(r)
             groups_p.append(p)
 
-        names = []
+        names_r = []
+        names_p = []
         for sublist in mixed_group_names:
             nested = [(name + "_rich", name + "_poor") for name in sublist]
 
-            names_tmp = []
+            names_r_tmp = []
+            names_p_tmp = []
             for r, p in nested:
-                names_tmp.append(r)
-                names_tmp.append(p)
+                names_r_tmp.append(r)
+                names_p_tmp.append(p)
 
-            names.append(names_tmp)
+            names_r.append(names_r_tmp)
+            names_p.append(names_p_tmp)
 
-        return self.generate_mixed(names, num_nbhds, groups_p)
+        matrix = (self.generate_mixed(names_r, int(num_nbhds / 2), groups_r) + 
+            self.generate_mixed(names_p, int(num_nbhds / 2), groups_p))
+
+        self.matrix = matrix
+
+        return self.matrix
