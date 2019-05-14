@@ -1,3 +1,4 @@
+from massey import analyzer
 from massey import group
 from massey import city
 from massey import visualizer
@@ -12,7 +13,9 @@ if __name__ == "__main__":
 
     city0 = city.City(groups0, 5)
 
-    # print(city0.generate_uniform())
+    city0.generate_uniform()
+    print(analyzer.entropy_index(city0))
+
     # print(city0.generate_segregated())
 
     city1 = city.City(groups1, 120)
@@ -24,5 +27,6 @@ if __name__ == "__main__":
     # print(city1.generate_mixed_p([["humans"], ["elves", "orcs"]]))
 
     city1.generate_mixed_p([["humans"], ["elves", "orcs"]])
+    print(analyzer.entropy_index(city1))
 
     visualizer.plot(city1)
