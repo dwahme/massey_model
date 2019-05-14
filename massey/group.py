@@ -14,7 +14,7 @@ class Group:
         return self.__str__()
 
     def fill_nbhd(self, inv_prop):
-        return (self.name, self.number // inv_prop, self.poverty_level)
+        return Group(self.name, self.number // inv_prop, self.poverty_level)
 
     def split_poverty(self):
         rich = Group(self.name + "_rich", self.number // 2, 0)

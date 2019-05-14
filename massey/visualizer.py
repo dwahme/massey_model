@@ -26,9 +26,7 @@ def plot(city, save=None):
 
     for x in range(xmax):
         for y in range(ymax):
-            triples = matrix[x + y*xmax]
-
-            groups = [group.Group(i[0], i[1], i[2]) for i in triples]
+            groups = matrix[x + y*xmax]
 
             for grp in groups:
 
