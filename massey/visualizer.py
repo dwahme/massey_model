@@ -1,5 +1,5 @@
 from massey import group
-from massey import nbhd
+from massey import city
 import matplotlib.pyplot as plt
 import math
 import random
