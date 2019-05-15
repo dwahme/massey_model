@@ -67,10 +67,12 @@ def nbhd_poverties(city):
     for nbhd in city.matrix:
 
         # See if we've calculated this one yet
-        nbhd_pov = nbhd_poverty_level(nbhd)
+        grp_names = [grp.name for grp in nbhd]
+        calced_names = [[grp.name for grp in n] for n, _ in poverties]
 
-        if (nbhd, nbhd_pov) not in poverties:
-            poverties.append((nbhd_pov, nbhd))
+        if grp_names not in calced_names:
+            nbhd_pov = nbhd_poverty_level(nbhd)
+            poverties.append((nbhd, nbhd_pov))
 
         # else nbhd poverty already calculated
 
