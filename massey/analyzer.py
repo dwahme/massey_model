@@ -2,7 +2,7 @@ from massey import group
 from massey import city
 import math
 
-def nbhd_pop(nbhd):
+def get_nbhd_pop(nbhd):
     return sum([grp.number for grp in nbhd])
 
 # Calculates the entropy score for a city
@@ -29,7 +29,7 @@ def entropy_score_city(city, poverty=False):
 def entropy_score_nbhd(nbhd, poverty=False):
 
     entropy_score = 0
-    tot_people = nbhd_pop(nbhd)
+    tot_people = get_nbhd_pop(nbhd)
     
     for grp in nbhd:
         if grp.number != 0:
@@ -58,7 +58,7 @@ def entropy_index(city, poverty=False):
 
     for nbhd in city.matrix:
 
-        nbhd_pop = tract_pop(nbhd)
+        nbhd_pop = get_nbhd_pop(nbhd)
         nbhd_ent = entropy_score_nbhd(nbhd, poverty)
 
         index += (nbhd_pop * (city_ent - nbhd_ent)) / (city_ent * city_pop)
@@ -66,7 +66,7 @@ def entropy_index(city, poverty=False):
     return index
 
 def nbhd_poverty_level(nbhd):
-    return sum([grp.poverty_level * grp.number for grp in nbhd]) / tract_pop(nbhd)
+    return sum([grp.poverty_level * grp.number for grp in nbhd]) / get_nbhd_pop(nbhd)
 
 def nbhd_poverties(city):
 
