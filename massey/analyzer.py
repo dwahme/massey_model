@@ -57,9 +57,11 @@ def entropy_index(city):
 
     return index
 
+# Helper for nbhd_poverties
 def nbhd_poverty_level(nbhd):
     return sum([grp.poverty_level * grp.number for grp in nbhd]) / tract_pop(nbhd)
 
+# Gets the poverty levels for each group in a city
 def nbhd_poverties(city):
 
     poverties = []
