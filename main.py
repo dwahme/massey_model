@@ -29,4 +29,12 @@ if __name__ == "__main__":
     city1.generate_mixed_p([["humans"], ["elves", "orcs"]])
     print(analyzer.entropy_index(city1))
 
+    # for nbhd in city1.matrix:
+    #     print(nbhd)
+
+    povs = analyzer.nbhd_poverties(city1)
+
+    for i in povs:
+        print(i)
+
     visualizer.plot(city1)

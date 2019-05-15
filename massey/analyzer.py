@@ -56,3 +56,22 @@ def entropy_index(city):
         index += (nbhd_pop * (city_ent - nbhd_ent)) / (city_ent * city_pop)
 
     return index
+
+def nbhd_poverty_level(nbhd):
+    return sum([grp.poverty_level * grp.number for grp in nbhd]) / tract_pop(nbhd)
+
+def nbhd_poverties(city):
+
+    poverties = []
+
+    for nbhd in city.matrix:
+
+        # See if we've calculated this one yet
+        nbhd_pov = nbhd_poverty_level(nbhd)
+
+        if (nbhd, nbhd_pov) not in poverties:
+            poverties.append((nbhd_pov, nbhd))
+
+        # else nbhd poverty already calculated
+
+    return poverties
