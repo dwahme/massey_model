@@ -163,6 +163,14 @@ class City:
 
         return matrix
 
+    def split_mix_groups(self, item):
+        
+        if isinstance(item, str):
+            return (item + "_rich", item + "_poor")
+        else:
+            return ((item[0] + "_rich", item[1]), (item[0] + "_poor", item[1]))
+
+
     def generate_mixed_p(self, mixed_group_names, num_nbhds=-1, groups=None):
         if num_nbhds == -1:
             num_nbhds = self.num_nbhds
@@ -180,7 +188,7 @@ class City:
         names_r = []
         names_p = []
         for sublist in mixed_group_names:
-            nested = [(name + "_rich", name + "_poor") for name in sublist]
+            nested = [self.split_mix_groups(name) for name in sublist]
 
             names_r_tmp = []
             names_p_tmp = []
