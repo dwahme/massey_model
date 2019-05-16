@@ -7,17 +7,17 @@ if __name__ == "__main__":
     groups_no = [group.Group("whites", 9600, .1), 
                  group.Group("blacks", 3200, .2),
                  group.Group("asians", 4000, .13),
-                 group.Group("hispanics", 1600, .17),
-                 group.Group("hispanics", 1600, .17, 1)]
+                 group.Group("hispanics", 1600, .3),
+                 group.Group("hispanics", 1600, .3, 1)]
 
     groups_lo = [group.Group("whites", 3200, .1),
                  group.Group("whites", 6400, .1, 1), 
                  group.Group("blacks", 3200, .2),
                  group.Group("asians", 4000, .13),
-                 group.Group("hispanics", 800, .17),
-                 group.Group("hispanics", 800, .17, 1),
-                 group.Group("hispanics", 800, .17, 2),
-                 group.Group("hispanics", 800, .17, 3)]
+                 group.Group("hispanics", 800, .3),
+                 group.Group("hispanics", 800, .3, 1),
+                 group.Group("hispanics", 800, .3, 2),
+                 group.Group("hispanics", 800, .3, 3)]
 
     groups_hi = [group.Group("whites", 6400, .1), 
                  group.Group("whites", 3200, .1, 1), 
