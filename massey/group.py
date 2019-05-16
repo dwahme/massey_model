@@ -2,10 +2,11 @@ import random
 
 class Group:
 
-    def __init__(self, name, number, poverty_level):
+    def __init__(self, name, number, poverty_level, ID=0):
         self.name = name
         self.number = number
         self.poverty_level = poverty_level
+        self.ID = ID
 
     def __str__(self):
         return "{}:{}:{}".format(self.name, self.number, self.poverty_level)

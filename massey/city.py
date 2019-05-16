@@ -8,13 +8,18 @@ class City:
 
         self.matrix = []
 
-    def get_group_by_name(self, name, groups=None):
+    def get_group(self, name, ID=-1, groups=None):
         if groups == None:
             groups = self.groups
 
-        for group in groups:
-            if group.name == name:
-                return group
+        if ID == -1:
+            for group in groups:
+                if group.name == name:
+                    return group
+        else:
+            for group in groups:
+                if group.name == name and group.ID == ID:
+                    return group
 
         return None
 
@@ -91,7 +96,11 @@ class City:
             mixed_group_num = 0
 
             for name in group_names:
-                group = self.get_group_by_name(name, groups)
+
+                if isinstance(name, str):
+                    group = self.get_group(name, groups=groups)
+                else:
+                    group = self.get_group(name[0], name[1], groups)
 
                 if group == None:
                     return []
