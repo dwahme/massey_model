@@ -50,6 +50,6 @@ if __name__ == "__main__":
               city_hi, city_hi_p, city_all, city_all_p]
 
     for c in cities:
-        print(analyzer.entropy_index(c))
+        print(analyzer.entropy_index(c), analyzer.entropy_index(c, True))
 
         # visualizer.plot(c)
