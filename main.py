@@ -15,6 +15,7 @@ if __name__ == "__main__":
 
     city0.generate_uniform()
     print(analyzer.entropy_index(city0))
+    print(analyzer.entropy_score_city(city0, True))
 
     # print(city0.generate_segregated())
 
