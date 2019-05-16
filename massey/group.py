@@ -2,10 +2,11 @@ import random
 
 class Group:
 
-    def __init__(self, name, number, poverty_level):
+    def __init__(self, name, number, poverty_level, ID=0):
         self.name = name
         self.number = number
         self.poverty_level = poverty_level
+        self.ID = ID
 
     def __str__(self):
         return "{}:{}:{}".format(self.name, self.number, self.poverty_level)
@@ -14,12 +15,12 @@ class Group:
         return self.__str__()
 
     def fill_nbhd(self, inv_prop):
-        return Group(self.name, self.number // inv_prop, self.poverty_level)
+        return Group(self.name, self.number // inv_prop, self.poverty_level, self.ID)
 
     def split_poverty(self):
-        rich = Group(self.name + "_rich", self.number // 2, 0)
+        rich = Group(self.name + "_rich", self.number // 2, 0, self.ID)
         poor = Group(self.name + "_poor", self.number // 2, 
-                     self.poverty_level * 2)
+                     self.poverty_level * 2, self.ID)
         return rich, poor
 
     def scatter(self, x_off, y_off):

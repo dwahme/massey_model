@@ -8,13 +8,18 @@ class City:
 
         self.matrix = []
 
-    def get_group_by_name(self, name, groups=None):
+    def get_group(self, name, ID=-1, groups=None):
         if groups == None:
             groups = self.groups
 
-        for group in groups:
-            if group.name == name:
-                return group
+        if ID == -1:
+            for group in groups:
+                if group.name == name:
+                    return group
+        else:
+            for group in groups:
+                if group.name == name and group.ID == ID:
+                    return group
 
         return None
 
@@ -91,7 +96,11 @@ class City:
             mixed_group_num = 0
 
             for name in group_names:
-                group = self.get_group_by_name(name, groups)
+
+                if isinstance(name, str):
+                    group = self.get_group(name, groups=groups)
+                else:
+                    group = self.get_group(name[0], name[1], groups)
 
                 if group == None:
                     return []
@@ -154,6 +163,14 @@ class City:
 
         return matrix
 
+    def split_mix_groups(self, item):
+        
+        if isinstance(item, str):
+            return (item + "_rich", item + "_poor")
+        else:
+            return ((item[0] + "_rich", item[1]), (item[0] + "_poor", item[1]))
+
+
     def generate_mixed_p(self, mixed_group_names, num_nbhds=-1, groups=None):
         if num_nbhds == -1:
             num_nbhds = self.num_nbhds
@@ -171,7 +188,7 @@ class City:
         names_r = []
         names_p = []
         for sublist in mixed_group_names:
-            nested = [(name + "_rich", name + "_poor") for name in sublist]
+            nested = [self.split_mix_groups(name) for name in sublist]
 
             names_r_tmp = []
             names_p_tmp = []

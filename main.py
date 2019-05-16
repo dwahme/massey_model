@@ -15,6 +15,7 @@ if __name__ == "__main__":
 
     city0.generate_uniform()
     print(analyzer.entropy_index(city0))
+    print(analyzer.entropy_score_city(city0, True))
 
     # print(city0.generate_segregated())
 
@@ -27,14 +28,14 @@ if __name__ == "__main__":
     # print(city1.generate_mixed_p([["humans"], ["elves", "orcs"]]))
 
     city1.generate_mixed_p([["humans"], ["elves", "orcs"]])
-    print(analyzer.entropy_index(city1))
+    print(analyzer.entropy_index(city1, True))
 
     # for nbhd in city1.matrix:
     #     print(nbhd)
 
     povs = analyzer.nbhd_poverties(city1)
 
-    for i in povs:
-        print(i)
+    # for i in povs:
+    #     print(i)
 
-    visualizer.plot(city1)
+    # visualizer.plot(city1)
