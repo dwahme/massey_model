@@ -205,4 +205,11 @@ class City:
         self.matrix = matrix
 
         return self.matrix
+
+    def shock_group_pov(self, group_name, pov_change):
+        for nbhd in self.matrix:
+            for grp in nbhd:
+
+                if grp.name == group_name:
+                    grp.poverty_level += pov_change
         
