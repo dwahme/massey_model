@@ -127,7 +127,7 @@ class City:
         if groups == None:
             groups = self.groups
 
-        splits = [group.split_poverty() for group in groups]
+        splits = [group.split_trait() for group in groups]
 
         groups_n = []
         groups_m = []
