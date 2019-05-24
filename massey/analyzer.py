@@ -9,18 +9,33 @@ def get_nbhd_pop(nbhd):
 def entropy_score_city(city, by_trait=False):
 
     entropy_score = 0
-    
-    for grp in city.groups:
-        if grp.number != 0:
-            prop = grp.number / city.get_num_people()
 
-            if by_trait == True:
-                prop *= grp.trait_percent
+    if by_trait:
+        # Get the total number of people with/without the trait
 
-            if prop != 0:
-                entropy_score += prop * math.log(1 / prop)
+        with_trait = 0
 
-        # else add 0
+        for grp in city.groups:
+            if grp.number != 0:
+                with_trait += grp.number / city.get_num_people() * grp.trait_percent
+
+        if with_trait != 0:
+            entropy_score += with_trait * math.log(1 / with_trait)
+
+        tot_people = city.get_num_people()
+        if with_trait != tot_people:
+            prop_without = (tot_people - with_trait) / tot_people
+            entropy_score += (prop_without) * math.log(1 / prop_without)
+
+    else:
+        for grp in city.groups:
+            if grp.number != 0:
+                prop = grp.number / city.get_num_people()
+
+                if prop != 0:
+                    entropy_score += prop * math.log(1 / prop)
+
+                # else add 0
     
     return entropy_score
 
