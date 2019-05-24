@@ -32,32 +32,28 @@ def plot(city, save=None):
 
             for grp in groups:
 
-                stripped_name = grp.name.split("_", 1)[0]
-
-                if stripped_name in colors.keys():
-                    color = colors[stripped_name]
+                if grp.name in colors.keys():
+                    color = colors[grp.name]
                 else:
                     color = choices[0]
                     choices = choices[1:]
-                    colors[stripped_name] = color
+                    colors[grp.name] = color
                 
                 label = False
                 if grp.name not in names_used:
                     names_used.append(grp.name)
                     label = True
 
-                marker = "^"
-                if "_poor" in grp.name:
-                    marker = "."
+                marker = "."
 
                 scattered = grp.scatter(x, y)
                 xs = [x for x, y in scattered]
                 ys = [y for x, y in scattered]
 
                 if label == True:
-                    plt.scatter(xs, ys, marker=marker, c=color, label=grp.name)
+                    plt.scatter(xs, y, c=color, label=grp.name)
                 else:
-                    plt.scatter(xs, ys, marker=marker, c=color)
+                    plt.scatter(xs, ys, c=color)
 
     plt.legend(loc="center right", framealpha=1)
 

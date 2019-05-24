@@ -121,7 +121,7 @@ class City:
 
         return matrix
 
-    def generate_uniform_p(self, num_nbhds=-1, groups=None):
+    def generate_uniform_seg(self, num_nbhds=-1, groups=None):
         if num_nbhds == -1:
             num_nbhds = self.num_nbhds
         if groups == None:
@@ -129,35 +129,35 @@ class City:
 
         splits = [group.split_poverty() for group in groups]
 
-        groups_r = []
-        groups_p = []
-        for r, p in splits:
-            groups_r.append(r)
-            groups_p.append(p)
+        groups_n = []
+        groups_m = []
+        for n, m in splits:
+            groups_n.append(n)
+            groups_m.append(m)
 
-        matrix = (self.generate_uniform(int(num_nbhds / 2), groups_r) + 
-            self.generate_uniform(int(num_nbhds / 2), groups_p))
+        matrix = (self.generate_uniform(int(num_nbhds / 2), groups_n) + 
+            self.generate_uniform(int(num_nbhds / 2), groups_m))
 
         self.matrix = matrix
 
         return matrix
 
-    def generate_segregated_p(self, num_nbhds=-1, groups=None):
+    def generate_segregated_seg(self, num_nbhds=-1, groups=None):
         if num_nbhds == -1:
             num_nbhds = self.num_nbhds
         if groups == None:
             groups = self.groups
 
-        splits = [group.split_poverty() for group in groups]
+        splits = [group.split_trait() for group in groups]
 
-        groups_r = []
-        groups_p = []
+        groups_n = []
+        groups_m = []
         for r, p in splits:
-            groups_r.append(r)
-            groups_p.append(p)
+            groups_n.append(r)
+            groups_m.append(p)
 
-        matrix = (self.generate_segregated(int(num_nbhds / 2), groups_r) + 
-            self.generate_segregated(int(num_nbhds / 2), groups_p))
+        matrix = (self.generate_segregated(int(num_nbhds / 2), groups_n) + 
+            self.generate_segregated(int(num_nbhds / 2), groups_m))
 
         self.matrix = matrix
 
@@ -166,50 +166,49 @@ class City:
     def split_mix_groups(self, item):
         
         if isinstance(item, str):
-            return (item + "_rich", item + "_poor")
+            return (item, item)
         else:
-            return ((item[0] + "_rich", item[1]), (item[0] + "_poor", item[1]))
+            return ((item[0], item[1]), (item[0], item[1]))
 
 
-    def generate_mixed_p(self, mixed_group_names, num_nbhds=-1, groups=None):
+    def generate_mixed_seg(self, mixed_group_names, num_nbhds=-1, groups=None):
         if num_nbhds == -1:
             num_nbhds = self.num_nbhds
         if groups == None:
             groups = self.groups
 
-        splits = [group.split_poverty() for group in groups]
+        splits = [group.split_trait() for group in groups]
 
-        groups_r = []
-        groups_p = []
-        for r, p in splits:
-            groups_r.append(r)
-            groups_p.append(p)
+        groups_n = []
+        groups_m = []
+        for n, m in splits:
+            groups_n.append(n)
+            groups_m.append(m)
 
-        names_r = []
-        names_p = []
+        names_n = []
+        names_m = []
         for sublist in mixed_group_names:
             nested = [self.split_mix_groups(name) for name in sublist]
 
-            names_r_tmp = []
-            names_p_tmp = []
+            names_n_tmp = []
+            names_m_tmp = []
             for r, p in nested:
-                names_r_tmp.append(r)
-                names_p_tmp.append(p)
+                names_n_tmp.append(r)
+                names_m_tmp.append(p)
 
-            names_r.append(names_r_tmp)
-            names_p.append(names_p_tmp)
+            names_n.append(names_n_tmp)
+            names_m.append(names_m_tmp)
 
-        matrix = (self.generate_mixed(names_r, int(num_nbhds / 2), groups_r) + 
-            self.generate_mixed(names_p, int(num_nbhds / 2), groups_p))
+        matrix = (self.generate_mixed(names_n, int(num_nbhds / 2), groups_n) + 
+            self.generate_mixed(names_m, int(num_nbhds / 2), groups_m))
 
         self.matrix = matrix
 
         return self.matrix
 
-    def shock_group_pov(self, group_name, pov_change):
+    def shock_group_rates(self, group_name, rate_change):
         for nbhd in self.matrix:
             for grp in nbhd:
 
                 if grp.name == group_name:
-                    grp.poverty_level += pov_change
-        
+                    grp.trait_percent += rate_change

@@ -6,7 +6,7 @@ def get_nbhd_pop(nbhd):
     return sum([grp.number for grp in nbhd])
 
 # Calculates the entropy score for a city
-def entropy_score_city(city, poverty=False):
+def entropy_score_city(city, by_trait=False):
 
     entropy_score = 0
     
@@ -14,8 +14,8 @@ def entropy_score_city(city, poverty=False):
         if grp.number != 0:
             prop = grp.number / city.get_num_people()
 
-            if poverty == True:
-                prop *= grp.poverty_level
+            if by_trait == True:
+                prop *= grp.trait_percent
 
             if prop != 0:
                 entropy_score += prop * math.log(1 / prop)
@@ -26,7 +26,7 @@ def entropy_score_city(city, poverty=False):
 
 
 # Calculates the entropy score for a neighborhood/tract
-def entropy_score_nbhd(nbhd, poverty=False):
+def entropy_score_nbhd(nbhd, by_trait=False):
 
     entropy_score = 0
     tot_people = get_nbhd_pop(nbhd)
@@ -35,8 +35,8 @@ def entropy_score_nbhd(nbhd, poverty=False):
         if grp.number != 0:
             prop = grp.number / tot_people
 
-            if poverty == True:
-                prop *= grp.poverty_level
+            if by_trait == True:
+                prop *= grp.trait_percent
             
             if prop != 0:
                 entropy_score += prop * math.log(1 / prop)
@@ -49,41 +49,41 @@ def entropy_score_nbhd(nbhd, poverty=False):
 # Calculates an entropy index of a city
 # https://www2.census.gov/programs-surveys/demo/about/housing-patterns/multigroup_entropy.pdf
 # Page 7
-def entropy_index(city, poverty=False):
+def entropy_index(city, by_trait=False):
     
     index = 0
 
-    city_ent = entropy_score_city(city, poverty)
+    city_ent = entropy_score_city(city, by_trait)
     city_pop = city.get_num_people()
 
     for nbhd in city.matrix:
 
         nbhd_pop = get_nbhd_pop(nbhd)
-        nbhd_ent = entropy_score_nbhd(nbhd, poverty)
+        nbhd_ent = entropy_score_nbhd(nbhd, by_trait)
 
         index += (nbhd_pop * (city_ent - nbhd_ent)) / (city_ent * city_pop)
 
     return index
 
-# Helper for nbhd_poverties
-def nbhd_poverty_level(nbhd):
-    return sum([grp.poverty_level * grp.number for grp in nbhd]) / get_nbhd_pop(nbhd)
+# Helper for nbhd_rates
+def nbhd_trait_percent(nbhd):
+    return sum([grp.trait_percent * grp.number for grp in nbhd]) / get_nbhd_pop(nbhd)
 
-# Gets the poverty levels for each group in a city
-def nbhd_poverties(city):
+# Gets the trait levels for each group in a city
+def nbhd_rates(city):
 
-    poverties = []
+    rates = []
 
     for nbhd in city.matrix:
 
         # See if we've calculated this one yet
         grp_names = [grp.name for grp in nbhd]
-        calced_names = [[grp.name for grp in n] for n, _ in poverties]
+        calced_names = [[grp.name for grp in n] for n, _ in rates]
 
         if grp_names not in calced_names:
-            nbhd_pov = nbhd_poverty_level(nbhd)
-            poverties.append((nbhd, nbhd_pov))
+            nbhd_rate = nbhd_trait_percent(nbhd)
+            rates.append((nbhd, nbhd_rate))
 
-        # else nbhd poverty already calculated
+        # else nbhd trait already calculated
 
-    return poverties
+    return rates
