@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     city0 = city.City(groups0, 5)
 
-    city0.generate_segregated_p()
+    city0.generate_segregated_seg()
     print(analyzer.entropy_index(city0, True))
     # print(analyzer.entropy_score_city(city0, True))
 
@@ -25,15 +25,15 @@ if __name__ == "__main__":
     # print(city1.generate_segregated())
     # print("")
     # print(city1.generate_mixed([["humans"], ["elves", "orcs"]]))
-    # print(city1.generate_mixed_p([["humans"], ["elves", "orcs"]]))
+    # print(city1.generate_mixed_seg([["humans"], ["elves", "orcs"]]))
 
-    city1.generate_mixed_p([["humans"], ["elves", "orcs"]])
+    city1.generate_mixed_seg([["humans"], ["elves", "orcs"]])
     # print(analyzer.entropy_index(city1, True))
 
     # for nbhd in city1.matrix:
     #     print(nbhd)
 
-    # povs = analyzer.nbhd_poverties(city1)
+    # povs = analyzer.nbhd_segoverties(city1)
 
     # for i in povs:
     #     print(i)

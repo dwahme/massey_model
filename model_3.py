@@ -39,30 +39,30 @@ if __name__ == "__main__":
     city_no = city.City(groups_no, 50)
     city_no.generate_mixed([["a", "b", ("d", 0)], ["c", ("d", 1)]])
 
-    city_no_p = city.City(groups_no, 50)
-    city_no_p.generate_mixed_p([["a", "b", ("d", 0)], ["c", ("d", 1)]])
+    city_no_seg = city.City(groups_no, 50)
+    city_no_seg.generate_mixed_seg([["a", "b", ("d", 0)], ["c", ("d", 1)]])
 
     city_lo = city.City(groups_lo, 50)
     city_lo.generate_mixed([[("a", 0), ("d", 0)], [("a", 1), "b", ("d", 1)], ["c", ("d", 2)], [("d", 3)]])
 
-    city_lo_p = city.City(groups_lo, 50)
-    city_lo_p.generate_mixed_p([[("a", 0), ("d", 0)], [("a", 1), "b", ("d", 1)], ["c", ("d", 2)], [("d", 3)]])
+    city_lo_seg = city.City(groups_lo, 50)
+    city_lo_seg.generate_mixed_seg([[("a", 0), ("d", 0)], [("a", 1), "b", ("d", 1)], ["c", ("d", 2)], [("d", 3)]])
 
     city_hi = city.City(groups_hi, 50)
     city_hi.generate_mixed([[("a", 0), ("d", 0)], [("a", 1), "b", ("d", 1)], ["c", ("d", 2)], [("d", 3)]])
 
-    city_hi_p = city.City(groups_hi, 50)
-    city_hi_p.generate_mixed_p([[("a", 0), ("d", 0)], [("a", 1), "b", ("d", 1)], ["c", ("d", 2)], [("d", 3)]])
+    city_hi_seg = city.City(groups_hi, 50)
+    city_hi_seg.generate_mixed_seg([[("a", 0), ("d", 0)], [("a", 1), "b", ("d", 1)], ["c", ("d", 2)], [("d", 3)]])
 
     city_all = city.City(groups_all, 50)
     city_all.generate_mixed([[("a", 0), ("d", 0)], ["b", ("d", 1)], ["c", ("d", 2)], [("d", 3)]])
 
-    city_all_p = city.City(groups_all, 50)
-    city_all_p.generate_mixed_p([[("a", 0), ("d", 0)], ["b", ("d", 1)], ["c", ("d", 2)], [("d", 3)]])
+    city_all_seg = city.City(groups_all, 50)
+    city_all_seg.generate_mixed_seg([[("a", 0), ("d", 0)], ["b", ("d", 1)], ["c", ("d", 2)], [("d", 3)]])
 
-    cities = [city_no, city_no_p, city_lo, city_lo_p, 
-              city_hi, city_hi_p, city_all, city_all_p]
-    # cities = [city_no_p, city_lo_p, city_hi_p, city_all_p]
+    cities = [city_no, city_no_seg, city_lo, city_lo_seg, 
+              city_hi, city_hi_seg, city_all, city_all_seg]
+    # cities = [city_no_seg, city_lo_seg, city_hi_seg, city_all_seg]
 
     for c in cities:
         print("{:.4f} {:.4f}".format(analyzer.entropy_index(c), analyzer.entropy_index(c, True)))
