@@ -4,7 +4,7 @@ from massey import city
 from massey import visualizer
 
 if __name__ == "__main__":
-    groups0 = [group.Group("humans", 20, .3), 
+    groups0 = [group.Group("humans", 20, .5), 
                group.Group("elves", 20, 0)]
                
     groups1 = [group.Group("humans", 1800, .3), 
@@ -13,9 +13,9 @@ if __name__ == "__main__":
 
     city0 = city.City(groups0, 5)
 
-    city0.generate_uniform()
-    print(analyzer.entropy_index(city0))
-    print(analyzer.entropy_score_city(city0, True))
+    city0.generate_segregated_p()
+    print(analyzer.entropy_index(city0, True))
+    # print(analyzer.entropy_score_city(city0, True))
 
     # print(city0.generate_segregated())
 
@@ -28,12 +28,12 @@ if __name__ == "__main__":
     # print(city1.generate_mixed_p([["humans"], ["elves", "orcs"]]))
 
     city1.generate_mixed_p([["humans"], ["elves", "orcs"]])
-    print(analyzer.entropy_index(city1, True))
+    # print(analyzer.entropy_index(city1, True))
 
     # for nbhd in city1.matrix:
     #     print(nbhd)
 
-    povs = analyzer.nbhd_poverties(city1)
+    # povs = analyzer.nbhd_poverties(city1)
 
     # for i in povs:
     #     print(i)
