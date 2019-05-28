@@ -22,7 +22,7 @@ def plot(city, save=None):
 
     xmax, ymax = factor_int(city.num_nbhds)
 
-    choices = "bgrcmykw"
+    choices = list("bgrcmyk") + ["0.75"]
     colors = {}
     names_used = []
 
