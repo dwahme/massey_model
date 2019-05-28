@@ -32,7 +32,7 @@ def plot(city, save=None):
 
             for grp in groups:
 
-                lab = grp.name + "=" + str(grp.trait_percent)
+                lab = "{} ({}%)".format(grp.name, grp.trait_percent)
 
                 if lab in colors.keys():
                     color = colors[lab]
@@ -57,6 +57,11 @@ def plot(city, save=None):
                 else:
                     plt.scatter(xs, ys, c=color)
 
-    plt.legend(loc="center right", framealpha=1)
+    handles, labels = plt.gca().get_legend_handles_labels()
+    labels, handles = zip(*sorted(zip(labels, handles), key=lambda t: t[0]))
+    plt.legend(handles, labels, loc="center right", framealpha=1)
+
+    plt.box(on=None)
+    plt.axis("off")
 
     plt.show()
