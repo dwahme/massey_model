@@ -32,16 +32,18 @@ def plot(city, save=None):
 
             for grp in groups:
 
-                if grp.name in colors.keys():
-                    color = colors[grp.name]
+                lab = grp.name + "=" + str(grp.trait_percent)
+
+                if lab in colors.keys():
+                    color = colors[lab]
                 else:
                     color = choices[0]
                     choices = choices[1:]
-                    colors[grp.name] = color
+                    colors[lab] = color
                 
                 label = False
-                if grp.name not in names_used:
-                    names_used.append(grp.name)
+                if lab not in names_used:
+                    names_used.append(lab)
                     label = True
 
                 marker = "."
@@ -51,7 +53,7 @@ def plot(city, save=None):
                 ys = [y for x, y in scattered]
 
                 if label == True:
-                    plt.scatter(xs, y, c=color, label=grp.name)
+                    plt.scatter(xs, ys, c=color, label=lab)
                 else:
                     plt.scatter(xs, ys, c=color)
 
