@@ -2,11 +2,12 @@ import random
 
 class Group:
 
-    def __init__(self, name, number, trait_percent, ID=0):
+    def __init__(self, name, number, trait_percent, ID=0, concentrated=-1):
         self.name = name
         self.number = number
         self.trait_percent = trait_percent
         self.ID = ID
+        self.concentrated = concentrated
 
     def __str__(self):
         return "{}:{}:{}".format(self.name, self.number, self.trait_percent)
@@ -15,12 +16,13 @@ class Group:
         return self.__str__()
 
     def fill_nbhd(self, inv_prop):
-        return Group(self.name, self.number // inv_prop, self.trait_percent, self.ID)
+        return Group(self.name, self.number // inv_prop, 
+                     self.trait_percent, self.ID, self.concentrated)
 
     def split_trait(self):
-        no_trait = Group(self.name, self.number // 2, 0, self.ID)
+        no_trait = Group(self.name, self.number // 2, 0, self.ID, 0)
         maybe_trait = Group(self.name, self.number // 2, 
-                     self.trait_percent * 2, self.ID)
+                     self.trait_percent * 2, self.ID, 1)
         return no_trait, maybe_trait
 
     def scatter(self, x_off, y_off):
