@@ -211,4 +211,11 @@ class City:
             for grp in nbhd:
 
                 if grp.name == group_name:
-                    grp.trait_percent += rate_change
+                    if grp.concentrated == -1:
+                        grp.trait_percent += rate_change
+                    elif grp.concentrated == 1:
+                        grp.trait_percent += 2 * rate_change
+        
+        for grp in self.groups:
+            if grp.name == group_name:
+                grp.trait_percent += rate_change
