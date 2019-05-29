@@ -39,7 +39,7 @@ def plot(city, save=False, name="fig", title=""):
 
             for grp in groups:
 
-                lab = "{} ({}%)".format(grp.name, grp.trait_percent)
+                lab = "{} ({:.0f}%)".format(grp.name, grp.trait_percent * 100)
 
                 if lab in colors.keys():
                     color = colors[lab]
