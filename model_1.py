@@ -49,4 +49,6 @@ if __name__ == "__main__":
     for c in cities:
         print("{:.4f} {:.4f}".format(analyzer.entropy_index(c), analyzer.entropy_index(c, True)))
 
+        # print(c.matrix)
+
         visualizer.plot(c)
