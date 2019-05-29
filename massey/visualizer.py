@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import math
 import random
 
+plot_num = 0
+
 def factor_int(n):
     nsqrt = math.ceil(math.sqrt(n))
     solution = False
@@ -17,7 +19,9 @@ def factor_int(n):
     return val, val2
 
 
-def plot(city, save=None):
+def plot(city, save=False, name="fig", title=""):
+    global plot_num
+
     matrix = city.matrix
 
     xmax, ymax = factor_int(city.num_nbhds)
@@ -25,6 +29,9 @@ def plot(city, save=None):
     choices = list("bgrcmyk") + ["0.75"]
     colors = {}
     names_used = []
+
+    plt.figure(plot_num)
+    plt.title(title)
 
     for x in range(xmax):
         for y in range(ymax):
@@ -57,11 +64,14 @@ def plot(city, save=None):
                 else:
                     plt.scatter(xs, ys, c=color)
 
-    handles, labels = plt.gca().get_legend_handles_labels()
+    handles, labels = plt.figure(plot_num).gca().get_legend_handles_labels()
     labels, handles = zip(*sorted(zip(labels, handles), key=lambda t: t[0]))
-    plt.legend(handles, labels, loc="center right", framealpha=1)
+    plt.figure(plot_num).legend(handles, labels, loc="center right", framealpha=1, title="Group (Trait Level)")
 
     plt.box(on=None)
     plt.axis("off")
 
-    plt.show()
+    if save:
+        plt.savefig("{}.png".format(name))
+    else:
+        plt.show()
